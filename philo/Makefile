@@ -6,7 +6,7 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/09/06 14:13:24 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/09/09 12:58:28 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ _BIN    =        ./
 
 CC      =        gcc
 CF      =        -Wall -Werror -Wextra
-SRCS    =        
+SRCS    =        $(SRC)philo_main.c
 OBJS    =        $(patsubst $(_SRC)%.c,$(_OBJ)%.o,$(SRCS))
 DEPS    =        libft.a
 LIBS    =        -lft

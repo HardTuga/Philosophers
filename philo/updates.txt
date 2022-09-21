@@ -2,4 +2,6 @@ v0.1 - Adicionada função de confirmação de argumentos.
        Adicionada struct data com os elementos do numero de filosofos e os tempos.
        Adicionada função para preencher a struct data.
        Adicionada struct philo.
+v0.2 - Junção das structs numa só, adicionados os mutex dos garfos e da morte.
+v0.3 - Adicionar a funcao para rotina de teste
        

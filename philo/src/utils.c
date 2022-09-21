@@ -1,33 +1,42 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstmap.c                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/10/28 12:23:02 by pcampos-          #+#    #+#             */
-/*   Updated: 2021/10/28 16:06:16 by pcampos-         ###   ########.fr       */
+/*   Created: 2022/09/21 14:36:02 by pcampos-          #+#    #+#             */
+/*   Updated: 2022/09/21 14:37:55 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "philo.h"
 
-t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *))
+int	ft_atoi(const char *str)
 {
-	t_list	*new;
-	t_list	*first;
+	int			s;
+	long long	n;
 
-	first = NULL;
-	while (lst)
+	s = 1;
+	n = 0;
+	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f'
+		|| *str == '\r' || *str == ' ')
+		str++;
+	if (*str == '-')
 	{
-		new = ft_lstnew(f(lst->content));
-		if (!new)
-		{
-			ft_lstclear(&first, del);
-			return (0);
-		}
-		ft_lstadd_back(&first, new);
-		lst = lst->next;
+		s *= -1;
+		str++;
 	}
-	return (first);
+	else if (*str == '+')
+		str++;
+	while (*str >= 48 && *str <= 57)
+	{
+		n = (n * 10) + (s * (*str - '0'));
+		str++;
+		if (n > 2147483647)
+			return (-1);
+		if (n < -2147483648)
+			return (0);
+	}
+	return (n);
 }

@@ -24,7 +24,7 @@ int	check_args(int ac, char **av)
 	{
 		while(av[i][++j])
 		{
-			if(!ft_isdigit(av[i]))
+			if(!(av[i][j] >= 48 && av[i][j] <= 57))
 				return (0);
 		}
 		j = -1;
@@ -40,26 +40,41 @@ int	fill_struct(char **av, t_data *data)
 	data->sleep = ft_atoi(av[4]);
 	if (av[5])
 		data->repeat = ft_atoi(av[5]);
+	else
+		data->repeat = 0;
 	if (data->n_philos < 1 || data->die < 1 || data->eat < 1 ||
 		data->sleep < 1 || data->repeat < 1)
 		return (0);
 	return (1);
 }
 
+void	rotina_de_teste(void *cenas)
+{
+	t_philos *philos;
+
+	philos = cenas;
+	printf("Eu sou o philo numero: %d \n", philos->philo_id);
+}
+
 int	main(int ac, char **av)
 {
-	t_data data;
-	t_philo	*philo;
+	int			i;
+	t_data		data;
+	t_philos	*philos;
 
-	if(!check_args(ac, av))
+	if(!check_args(ac, av) || !fill_struct(av, &data))
 	{
-		ft_putstr_fd("Erro nos argumentos\n", 2);
-		return (-1);
+		printf("Erro nos argumentos\n");
+		return (0);
 	}
-	if(!fill_struct(av, &data))
+	philos = malloc(sizeof(t_philos) * data.n_philos);
+	if(!philos)
 	{
-		ft_putstr_fd("Erro no valor dos argumentos\n", 2);
-		return (-1);
+		printf("Erro de malloc");
+		return(0);
 	}
-	philo = malloc(sizeof(t_philo) * data.n_philos);
+	i = -1;
+	while(++i < data.n_philos - 1)
+		pthread_create(&philos->philo_id, NULL, rotina_de_teste, (void*)philos);
+
 }

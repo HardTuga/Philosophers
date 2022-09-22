@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:38:12 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/09/21 15:39:17 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:44:38 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@
 //------------------------------INCLUDES------------------------------//
 # include   <sys/time.h>
 # include	<pthread.h>
+# include	<stdio.h>
+# include	<stdlib.h>
 
 //------------------------------STRUCTS------------------------------//
 typedef struct s_data
@@ -25,13 +27,14 @@ typedef struct s_data
 	int				eat;
 	int				sleep;
 	int				repeat;
-	pthread_mutex_t	dead;
+	pthread_mutex_t	*dead;
 	pthread_mutex_t	*forks;
 }				t_data;
 
 typedef struct s_philos
 {
-	pthread_t	philo_id;
+	pthread_t	tid;
+	int			philo_n;
 }				t_philos;
 
 //------------------------------PHILO_MAIN------------------------------//

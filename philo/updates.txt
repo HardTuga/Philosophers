@@ -3,5 +3,7 @@ v0.1 - Adicionada função de confirmação de argumentos.
        Adicionada função para preencher a struct data.
        Adicionada struct philo.
 v0.2 - Junção das structs numa só, adicionados os mutex dos garfos e da morte.
-v0.3 - Adicionar a funcao para rotina de teste
-       
+v0.3 - Adicionada a função para rotina de teste.
+v0.4 - Função de teste das rotinas feito.
+       Adicionadas funçoes para dar free nas structs.
+       Comecar a distribuir as coisas para os ficheiros corretos.

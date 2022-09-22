@@ -6,82 +6,52 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/09/09 12:58:28 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/09/22 12:35:17 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-################ PROGRAM ################
 
-NAME	    =    philo
+################## Program #################
 
-################ TERMINAL ###############
+NAME =			philo
 
-RMV        =        rm -f
-MKD        =        mkdir
-PRT        =        printf
-MKE        =        make
-CPY        =        cp
+################## COLORS ##################
 
-################# COLORS ################
+--GRN	=		\033[32m
+--RED	=		\033[31m
+--WHT	=		\033[39m
 
---GRN    =        \033[32m
---RED    =        \033[31m
---WHT    =        \033[39m
+################## TERMINAL ################
 
-################# DIRS ##################
+RM		=		rm -f
 
-_SRC    =        src/
-_OBJ 	=		 obj/
-_LIB    =        libs/
-_BIN    =        ./
+################## COMPILER ################
 
-############### COMPILER ################
+CC		=		cc
+CFLAGS	=		-Wall -Werror -Wextra
 
-CC      =        gcc
-CF      =        -Wall -Werror -Wextra
-SRCS    =        $(SRC)philo_main.c
-OBJS    =        $(patsubst $(_SRC)%.c,$(_OBJ)%.o,$(SRCS))
-DEPS    =        libft.a
-LIBS    =        -lft
+################## FILES ###################
 
-################ RULES ##################
+SRCS	=		srcs/philo_main.c \
+				srcs/utils.c
 
-all: deps $(NAME)
+OBJS	=		$(SRCS:.c=.o)	
 
-$(_OBJ)%.o: $(_SRC)%.c
-	$(CC) $(CF) -c $< -o $@
+################## RULES ###################
 
-$(NAME): deps $(OBJS)
-	$(CC) $(CF)  $(OBJS) -o $(NAME) -L $(_LIB) $(LIBS)
+all: $(NAME)
 
-################ DEPS ###################
+$(NAME): $(OBJS)
+	$(CC) $(CFLAGS) -pthread $(OBJS) -o $(NAME)
 
-deps: $(DEPS)
+################## CLEAN ###################
 
-libft.a:
-	$(MKE) bonus -C libft/
-
-############## STRUCTURE ################
-
-$(_OBJ):
-	$(MKD) $(_OBJ)
-
-$(_LIB):
-	$(MKD) $(_LIB)
-
-$(_SRC):
-	$(MKD) $(_SRC)
-
-$(_BIN):
-	$(MKD) $(_BIN)libs/libft.a
+clean:
+	$(RM) $(OBJS)
 
 fclean: clean
-	$(RMV) -r $(NAME)
-
-	$(RMV) -r $(_LIB)libft.a
+	$(RM) $(NAME)
 
 re: fclean all
 
-rebonus: fclean bonus
-
-.PHONY: all deps clean fclean re
+.PHONY: all clean fclean re

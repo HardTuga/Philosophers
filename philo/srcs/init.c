@@ -1,42 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 14:36:02 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/09/21 14:37:55 by pcampos-         ###   ########.fr       */
+/*   Created: 2022/09/22 15:07:00 by pcampos-          #+#    #+#             */
+/*   Updated: 2022/09/22 15:13:23 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-int	ft_atoi(const char *str)
+int	init(t_data data, t_philos *philos)
 {
-	int			s;
-	long long	n;
-
-	s = 1;
-	n = 0;
-	while (*str == '\t' || *str == '\n' || *str == '\v' || *str == '\f'
-		|| *str == '\r' || *str == ' ')
-		str++;
-	if (*str == '-')
+	int i;
+	
+	philos = malloc(sizeof(t_philos) * data.n_philos);
+	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
+	i = 0;
+	while(++i <= data.n_philos)
 	{
-		s *= -1;
-		str++;
+		(philos[i - 1]).philo_n = i;
+		pthread_create(&(philos[i - 1]).tid, NULL, rotina_de_teste, (void*)&(philos[i - 1]));
 	}
-	else if (*str == '+')
-		str++;
-	while (*str >= 48 && *str <= 57)
-	{
-		n = (n * 10) + (s * (*str - '0'));
-		str++;
-		if (n > 2147483647)
-			return (-1);
-		if (n < -2147483648)
-			return (0);
-	}
-	return (n);
+	i = 0;
+	while(++i <= data.n_philos)
+		pthread_join((philos[i - 1]).tid, NULL);
+	printf("Tou aqui.\n");
 }

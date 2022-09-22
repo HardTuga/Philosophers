@@ -17,8 +17,8 @@ int	check_args(int ac, char **av)
 	int i;
 	int j;
 
-	i = -1;
-	if(ac < 4 || ac > 5)
+	i = 0;
+	if(ac < 5 || ac > 6)
 		return (0);
 	while(av[++i])
 	{
@@ -35,25 +35,31 @@ int	check_args(int ac, char **av)
 int	fill_struct(char **av, t_data *data)
 {
 	data->n_philos = ft_atoi(av[1]);
+	printf("%d\n", data->n_philos);
 	data->die = ft_atoi(av[2]);
 	data->eat = ft_atoi(av[3]);
 	data->sleep = ft_atoi(av[4]);
 	if (av[5])
+	{
 		data->repeat = ft_atoi(av[5]);
+		if (data->repeat < 1)
+			return (0);
+	}
 	else
 		data->repeat = 0;
 	if (data->n_philos < 1 || data->die < 1 || data->eat < 1 ||
-		data->sleep < 1 || data->repeat < 1)
+		data->sleep < 1)
 		return (0);
 	return (1);
 }
 
-void	rotina_de_teste(void *cenas)
+void	*rotina_de_teste(void *cenas)
 {
 	t_philos *philos;
 
 	philos = cenas;
-	printf("Eu sou o philo numero: %d \n", philos->philo_id);
+	printf("Eu sou o philo numero: %d \n", philos->philo_n);
+	return (NULL);
 }
 
 int	main(int ac, char **av)
@@ -67,14 +73,9 @@ int	main(int ac, char **av)
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
-	philos = malloc(sizeof(t_philos) * data.n_philos);
-	if(!philos)
+	if(!init(data, *philos));
 	{
-		printf("Erro de malloc");
-		return(0);
+		printf("Erro ao iniciar mutex ou threads\n");
+		return (0);
 	}
-	i = -1;
-	while(++i < data.n_philos - 1)
-		pthread_create(&philos->philo_id, NULL, rotina_de_teste, (void*)philos);
-
 }

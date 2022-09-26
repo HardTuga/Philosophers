@@ -7,3 +7,5 @@ v0.3 - Adicionada a função para rotina de teste.
 v0.4 - Função de teste das rotinas feito.
        Adicionadas funçoes para dar free nas structs.
        Comecar a distribuir as coisas para os ficheiros corretos.
+v0.5 - Structs alteradas, Mutex dos garfos iniciados.
+       Erro na parte em que os philos agarram nos garfos.

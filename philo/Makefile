@@ -6,7 +6,7 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/09/22 12:35:17 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/09/26 15:27:33 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,12 +28,13 @@ RM		=		rm -f
 ################## COMPILER ################
 
 CC		=		cc
-CFLAGS	=		-Wall -Werror -Wextra
+CFLAGS	=		-Wall -Werror -Wextra -g -fsanitize=address
 
 ################## FILES ###################
 
 SRCS	=		srcs/philo_main.c \
-				srcs/utils.c
+				srcs/utils.c \
+				srcs/init.c
 
 OBJS	=		$(SRCS:.c=.o)	
 

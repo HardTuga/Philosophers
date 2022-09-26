@@ -22,6 +22,7 @@ int	check_args(int ac, char **av)
 		return (0);
 	while(av[++i])
 	{
+		j = -1;
 		while(av[i][++j])
 		{
 			if(!(av[i][j] >= 48 && av[i][j] <= 57))
@@ -35,7 +36,6 @@ int	check_args(int ac, char **av)
 int	fill_struct(char **av, t_data *data)
 {
 	data->n_philos = ft_atoi(av[1]);
-	printf("%d\n", data->n_philos);
 	data->die = ft_atoi(av[2]);
 	data->eat = ft_atoi(av[3]);
 	data->sleep = ft_atoi(av[4]);
@@ -47,33 +47,31 @@ int	fill_struct(char **av, t_data *data)
 	}
 	else
 		data->repeat = 0;
-	if (data->n_philos < 1 || data->die < 1 || data->eat < 1 ||
-		data->sleep < 1)
+	if (data->n_philos < 1 || data->die < 1 ||
+		data->eat < 1 || data->sleep < 1)
 		return (0);
 	return (1);
 }
 
-void	*rotina_de_teste(void *cenas)
-{
-	t_philos *philos;
-
-	philos = cenas;
-	printf("Eu sou o philo numero: %d \n", philos->philo_n);
-	return (NULL);
-}
-
 int	main(int ac, char **av)
 {
-	int			i;
-	t_data		data;
 	t_philos	*philos;
+	static t_data		data;
 
-	if(!check_args(ac, av) || !fill_struct(av, &data))
+	if(!check_args(ac, av))
 	{
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
-	if(!init(data, *philos));
+	if(!fill_struct(av, &data))
+	{
+		printf("Erro nos valores dos argumentos\n");
+		return (0);
+	}
+	philos = malloc(sizeof(t_philos) * data.n_philos);
+	philos->data = &data;
+	philos->data->forks = malloc(sizeof(pthread_mutex_t) * philos->data->n_philos);
+	if(!init(philos))
 	{
 		printf("Erro ao iniciar mutex ou threads\n");
 		return (0);

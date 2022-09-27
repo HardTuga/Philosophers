@@ -55,6 +55,7 @@ int	fill_struct(char **av, t_data *data)
 
 int	main(int ac, char **av)
 {
+	int	i;
 	t_philos	*philos;
 	static t_data		data;
 
@@ -68,9 +69,11 @@ int	main(int ac, char **av)
 		printf("Erro nos valores dos argumentos\n");
 		return (0);
 	}
+	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
 	philos = malloc(sizeof(t_philos) * data.n_philos);
-	philos->data = &data;
-	philos->data->forks = malloc(sizeof(pthread_mutex_t) * philos->data->n_philos);
+	i = -1;
+	while(++i < data.n_philos)
+		philos[i].data = data;
 	if(!init(philos))
 	{
 		printf("Erro ao iniciar mutex ou threads\n");

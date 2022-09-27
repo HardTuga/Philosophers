@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:38:12 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/09/26 16:22:18 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/09/27 16:26:41 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,12 @@
 # define PHILO_H
 
 //------------------------------INCLUDES------------------------------//
-# include   <sys/time.h>
-# include	<pthread.h>
 # include	<stdio.h>
 # include	<stdlib.h>
+# include	<pthread.h>
+# include   <sys/time.h>
 
 //------------------------------DEFINES------------------------------//
-# define UNAVALIABLE 0
-# define AVAILABLE 1
 
 //------------------------------STRUCTS------------------------------//
 typedef struct s_data
@@ -33,13 +31,15 @@ typedef struct s_data
 	int				repeat;
 	pthread_mutex_t	*dead;
 	pthread_mutex_t	*forks;
+	struct timeval	current_t;
 }				t_data;
 
 typedef struct s_philos
 {
-	pthread_t	tid;
-	int			philo_n;
-	t_data		*data;
+	pthread_t		tid;
+	int				philo_n;
+	struct timeval	last_meal;
+	t_data			data;
 }				t_philos;
 
 //------------------------------PHILO_MAIN------------------------------//
@@ -49,6 +49,8 @@ int 	check_args(int ac, char **av);
 int		init(t_philos *philos);
 void	*rotina_de_teste(void *cenas);
 
+//------------------------------TIMER------------------------------//
+int		get_time();
 //------------------------------UTILS------------------------------//
 int		ft_atoi(const char *str);
 

@@ -9,3 +9,5 @@ v0.4 - Função de teste das rotinas feito.
        Comecar a distribuir as coisas para os ficheiros corretos.
 v0.5 - Structs alteradas, Mutex dos garfos iniciados.
        Erro na parte em que os philos agarram nos garfos.
+v0.6 - Mutex a funcionar.
+       Iniciar a mexer com o timer.

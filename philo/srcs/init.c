@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:07:00 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/09/27 16:15:49 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/09/30 16:42:42 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,8 @@ int	grab_forks(t_philos *philo, int id, int	r, int l)
 		if(pthread_mutex_lock(&(philo->data.forks[l])) || pthread_mutex_lock(&(philo->data.forks[r])))
 			return (0);
 	}
-	printf("O philo %d agarrou em 2 garfos\n", id);
+	//printf("Tempo: %lld - ", current_time(philo[id - 1]));
+	//printf("O philo %d agarrou em 2 garfos\n", id);
 	return(1);
 }
 
@@ -37,6 +38,7 @@ void	*rotina_de_teste(void *cenas)
 	philo = cenas;
 	forks = 0;
 	id = philo->philo_n;
+	printf("Init mas fora: %lld\n", philo->time_init);
 	while(forks != 1)
 	{
 		if (id == philo->data.n_philos)
@@ -44,6 +46,8 @@ void	*rotina_de_teste(void *cenas)
 		else
 			forks = grab_forks(philo, id, id - 1, id);
 	}
+	printf("Tempo: %lld - ", current_time(*philo));
+	printf("O philo %d agarrou em 2 garfos\n", id);
 	if (id == philo->data.n_philos)
 	{
 		pthread_mutex_unlock(&(philo->data.forks[id - 1]));
@@ -54,6 +58,7 @@ void	*rotina_de_teste(void *cenas)
 		pthread_mutex_unlock(&(philo->data.forks[id - 1]));
 		pthread_mutex_unlock(&(philo->data.forks[id]));
 	}
+	printf("Tempo: %lld - ", current_time(*philo));
 	printf("O philo %d largou os garfos\n", id);
 	return (NULL);
 }

@@ -11,3 +11,5 @@ v0.5 - Structs alteradas, Mutex dos garfos iniciados.
        Erro na parte em que os philos agarram nos garfos.
 v0.6 - Mutex a funcionar.
        Iniciar a mexer com o timer.
+v0.7 - Timer funciona mas mal.
+v0.8 - Timer ja funciona bem.

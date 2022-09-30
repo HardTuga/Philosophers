@@ -53,6 +53,15 @@ int	fill_struct(char **av, t_data *data)
 	return (1);
 }
 
+t_philos	fill_philo(t_data data)
+{
+	t_philos	philo;
+
+	philo.data = data;
+	philo.time_init = get_timer();
+	return (philo);
+}
+
 int	main(int ac, char **av)
 {
 	int	i;
@@ -73,7 +82,7 @@ int	main(int ac, char **av)
 	philos = malloc(sizeof(t_philos) * data.n_philos);
 	i = -1;
 	while(++i < data.n_philos)
-		philos[i].data = data;
+		philos[i] = fill_philo(data);
 	if(!init(philos))
 	{
 		printf("Erro ao iniciar mutex ou threads\n");

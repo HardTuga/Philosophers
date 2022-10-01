@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:38:12 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/09/30 12:06:40 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/01 17:14:48 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@
 //------------------------------INCLUDES------------------------------//
 # include	<stdio.h>
 # include	<stdlib.h>
+# include	<unistd.h>
 # include	<pthread.h>
 # include   <sys/time.h>
 
@@ -39,19 +40,22 @@ typedef struct s_philos
 	int				philo_n;
 	t_data			data;
 	long long		time_init;
-	//long long		last_eat;
+	long long		last_eat;
 }				t_philos;
 
 //------------------------------PHILO_MAIN------------------------------//
-int 		check_args(int ac, char **av);
-
-//------------------------------INIT------------------------------//
+int			check_args(int ac, char **av);
+int			fill_data(char **av, t_data *data);
+t_philos	fill_philo(t_data data);
 int			init(t_philos *philos);
-void		*rotina_de_teste(void *cenas);
+
+//------------------------------ROUTINE------------------------------//
+void		*start_routine(void *cenas);
+int			grab_forks(t_philos *philo, int id, int r, int l);
 
 //------------------------------TIMER------------------------------//
 long long	current_time(t_philos philo);
-long long	get_timer();
+long long	get_timer(void);
 
 //------------------------------UTILS------------------------------//
 int			ft_atoi(const char *str);

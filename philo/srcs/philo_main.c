@@ -14,18 +14,18 @@
 
 int	check_args(int ac, char **av)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
 	i = 0;
-	if(ac < 5 || ac > 6)
+	if (ac < 5 || ac > 6)
 		return (0);
-	while(av[++i])
+	while (av[++i])
 	{
 		j = -1;
-		while(av[i][++j])
+		while (av[i][++j])
 		{
-			if(!(av[i][j] >= 48 && av[i][j] <= 57))
+			if (!(av[i][j] >= 48 && av[i][j] <= 57))
 				return (0);
 		}
 		j = -1;
@@ -33,7 +33,7 @@ int	check_args(int ac, char **av)
 	return (1);
 }
 
-int	fill_struct(char **av, t_data *data)
+int	fill_data(char **av, t_data *data)
 {
 	data->n_philos = ft_atoi(av[1]);
 	data->die = ft_atoi(av[2]);
@@ -46,9 +46,9 @@ int	fill_struct(char **av, t_data *data)
 			return (0);
 	}
 	else
-		data->repeat = 0;
-	if (data->n_philos < 1 || data->die < 1 ||
-		data->eat < 1 || data->sleep < 1)
+		data->repeat = -1;
+	if (data->n_philos < 1 || data->die < 1
+		|| data->eat < 1 || data->sleep < 1)
 		return (0);
 	return (1);
 }
@@ -62,18 +62,40 @@ t_philos	fill_philo(t_data data)
 	return (philo);
 }
 
-int	main(int ac, char **av)
+int	init(t_philos *philos)
 {
 	int	i;
-	t_philos	*philos;
-	static t_data		data;
 
-	if(!check_args(ac, av))
+	i = -1;
+	while (++i < philos->data.n_philos)
+		if (pthread_mutex_init(&(philos->data.forks[i]), NULL))
+			return (0);
+	i = -1;
+	while (++i < philos->data.n_philos)
+	{
+		philos[i].philo_n = i + 1;
+		if (pthread_create(&(philos[i]).tid, NULL, start_routine,
+				(void*) &(philos[i])))
+			return (0);
+	}
+	i = -1;
+	while (++i < philos->data.n_philos)
+		pthread_join((philos[i]).tid, NULL);
+	return (1);
+}
+
+int	main(int ac, char **av)
+{
+	int				i;
+	t_philos		*philos;
+	static t_data	data;
+
+	if (!check_args(ac, av))
 	{
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
-	if(!fill_struct(av, &data))
+	if (!fill_data(av, &data))
 	{
 		printf("Erro nos valores dos argumentos\n");
 		return (0);
@@ -81,9 +103,9 @@ int	main(int ac, char **av)
 	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
 	philos = malloc(sizeof(t_philos) * data.n_philos);
 	i = -1;
-	while(++i < data.n_philos)
+	while (++i < data.n_philos)
 		philos[i] = fill_philo(data);
-	if(!init(philos))
+	if (!init(philos))
 	{
 		printf("Erro ao iniciar mutex ou threads\n");
 		return (0);

@@ -6,7 +6,7 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/09/30 12:11:50 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/10/01 17:05:22 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ CFLAGS	=		-Wall -Werror -Wextra -g -fsanitize=address
 
 SRCS	=		srcs/philo_main.c \
 				srcs/utils.c \
-				srcs/init.c \
+				srcs/routine.c \
 				srcs/timer.c
 
 OBJS	=		$(SRCS:.c=.o)	

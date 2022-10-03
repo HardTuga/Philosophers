@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:38:12 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/01 17:14:48 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/03 15:17:54 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@
 # include   <sys/time.h>
 
 //------------------------------DEFINES------------------------------//
+# define	EATING		1
+# define	SLEEPING	2
+# define	THINKING	3
+# define	FORK		4
 
 //------------------------------STRUCTS------------------------------//
 typedef struct s_data
@@ -30,7 +34,8 @@ typedef struct s_data
 	int				eat;
 	int				sleep;
 	int				repeat;
-	pthread_mutex_t	*dead;
+	pthread_mutex_t	dead;
+	int				died;
 	pthread_mutex_t	*forks;
 }				t_data;
 
@@ -52,6 +57,9 @@ int			init(t_philos *philos);
 //------------------------------ROUTINE------------------------------//
 void		*start_routine(void *cenas);
 int			grab_forks(t_philos *philo, int id, int r, int l);
+void		philo_eat(t_philos *philo);
+void		print_msg(t_philos *philo, int option);
+int			philo_die(t_philos *philo);
 
 //------------------------------TIMER------------------------------//
 long long	current_time(t_philos philo);

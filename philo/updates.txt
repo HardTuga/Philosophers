@@ -15,3 +15,5 @@ v0.7 - Timer funciona mas mal.
 v0.8 - Timer ja funciona bem.
 v0.9 - Verficar norminette, alterar nomes e ficheiros das funçoes para serem mais claros
        Adicionada função para comer, parte da função para dormir e o loop caso não tenha indicação de vezes para comer.
+v0.10 - Adicionar a morte dos philos, que ta a fazer coisas estranhas.
+        Alterada a maneira como mando as mensagens para o terminal.

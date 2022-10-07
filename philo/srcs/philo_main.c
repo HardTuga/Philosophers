@@ -12,6 +12,16 @@
 
 #include "philo.h"
 
+
+static void data_stats(t_data *data) {
+	printf("%d n_philos\n", data->n_philos);
+	printf("%d die\n", data->die);
+	printf("%d eat\n", data->eat);
+	printf("%d sleep\n", data->sleep);
+	printf("%d repeat\n", data->repeat);
+	printf("%d died\n", data->died);
+}
+
 int	check_args(int ac, char **av)
 {
 	int	i;
@@ -50,19 +60,20 @@ int	fill_data(char **av, t_data *data)
 	if (data->n_philos < 1 || data->die < 1
 		|| data->eat < 1 || data->sleep < 1)
 		return (0);
+	data_stats(data);
 	return (1);
 }
 
-t_philos	fill_philo(t_data data)
+t_philos	fill_philo(t_data *data)
 {
 	t_philos	philo;
 
 	philo.status = THINKING;
-	philo.data = &data;
-	if (data.repeat == -1)
+	philo.data = data;
+	if (data->repeat == -1)
 		philo.n_eat = -1;
 	else
-		philo.n_eat = data.repeat;
+		philo.n_eat = data->repeat;
 	philo.time_init = get_timer();
 	philo.last_eat = philo.time_init;
 	return (philo);
@@ -73,15 +84,24 @@ int	init(t_philos *philos)
 	int	i;
 
 	if (pthread_mutex_init(&(philos->data->dead), NULL)
-		|| pthread_mutex_init(&(philos->data->msg), NULL))
+		|| pthread_mutex_init(&(philos->data->msg), NULL)) {
 		return (0);
+		printf ("Deu merda\n");
+	}
 	i = -1;
-	while (++i < philos->data->n_philos)
-		if (pthread_mutex_init(&(philos->data->forks[i]), NULL))
+	while (++i < philos->data->n_philos) {
+		if (pthread_mutex_init(&(philos->data->forks[i]), NULL)) {
+			printf ("Deu merda no fork...\n");
 			return (0);
+		}
+	}
 	i = -1;
+	printf ("Stats so far:\n");
+	printf ("#[%d]\n", philos->data->n_philos);
+	data_stats(philos->data);
 	while (++i < philos->data->n_philos)
 	{
+		printf ("Philo %d created\n", i);
 		philos[i].philo_n = i + 1;
 		if (pthread_create(&(philos[i]).tid, NULL, start_routine,
 				(void*) &(philos[i])))
@@ -99,20 +119,27 @@ int	main(int ac, char **av)
 	t_philos		*philos;
 	static t_data	data;
 
+	for (int it = 0; it < ac; it++)
+		printf("ArgS: %s\n", av[it]);
 	if (!check_args(ac, av) || !fill_data(av, &data))
 	{
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
 	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
-	if (!data.forks)
+	if (!data.forks) {
+		printf("Erro no Malloc forks\n");
 		return (0);
+	}
 	philos = malloc(sizeof(t_philos) * data.n_philos);
-	if (!philos)
+	if (!philos) {
+		printf("Erro no Malloc philos\n");
 		return (0);
+	}
 	i = -1;
 	while (++i < data.n_philos)
-		philos[i] = fill_philo(data);
+		philos[i] = fill_philo(&data);
+	printf ("Filled all philos\n");
 	if (!init(philos))
 	{
 		printf("Erro ao iniciar mutex ou threads\n");

@@ -99,6 +99,7 @@ void	*start_routine(void *idk)
 	t_philos	*philo;
 
 	philo = idk;
+	printf ("Starting routine... [%p]\n", philo);
 	if (philo->status == THINKING && philo_die(philo))
 	{
 		if (!grab_forks(philo, philo->philo_n - 1,

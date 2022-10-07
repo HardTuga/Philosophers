@@ -56,7 +56,7 @@ typedef struct s_philos
 //------------------------------PHILO_MAIN------------------------------//
 int			check_args(int ac, char **av);
 int			fill_data(char **av, t_data *data);
-t_philos	fill_philo(t_data data);
+t_philos	fill_philo(t_data *data);
 int			init(t_philos *philos);
 
 //------------------------------ROUTINE------------------------------//

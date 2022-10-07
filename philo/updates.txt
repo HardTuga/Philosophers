@@ -20,3 +20,4 @@ v0.10 - Adicionar a morte dos philos, que ta a fazer coisas estranhas.
 v0.11 - Adicionado eles comerem as vezes que sao pedidas.
         A morte funciona.
         O programa terminar quando alguem morre.
+v1.0 - Apos ajuda do Arosado o programa deve funcionar.

@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 12:17:21 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/07 16:40:00 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:32:42 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,8 @@ void	end_prog(t_philos *philos)
 	i = -1;
 	while (++i < philos->data->n_philos)
 		pthread_mutex_destroy(&philos->data->forks[i]);
-	// free(philos->data->forks);
+	free(philos->data->forks);
 	pthread_mutex_destroy(&philos->data->dead);
+	pthread_mutex_destroy(&philos->data->msg);
 	free(philos);
 }

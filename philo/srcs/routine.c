@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:07:00 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/07 16:09:53 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/07 19:32:00 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ void	*start_routine(void *idk)
 	t_philos	*philo;
 
 	philo = idk;
-	printf ("Starting routine... [%p]\n", philo);
 	if (philo->status == THINKING && philo_die(philo))
 	{
 		if (!grab_forks(philo, philo->philo_n - 1,

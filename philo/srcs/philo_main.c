@@ -57,8 +57,14 @@ t_philos	fill_philo(t_data data)
 {
 	t_philos	philo;
 
-	philo.data = data;
+	philo.status = THINKING;
+	philo.data = &data;
+	if (data.repeat == -1)
+		philo.n_eat = -1;
+	else
+		philo.n_eat = data.repeat;
 	philo.time_init = get_timer();
+	philo.last_eat = philo.time_init;
 	return (philo);
 }
 
@@ -66,12 +72,15 @@ int	init(t_philos *philos)
 {
 	int	i;
 
+	if (pthread_mutex_init(&(philos->data->dead), NULL)
+		|| pthread_mutex_init(&(philos->data->msg), NULL))
+		return (0);
 	i = -1;
-	while (++i < philos->data.n_philos)
-		if (pthread_mutex_init(&(philos->data.forks[i]), NULL))
+	while (++i < philos->data->n_philos)
+		if (pthread_mutex_init(&(philos->data->forks[i]), NULL))
 			return (0);
 	i = -1;
-	while (++i < philos->data.n_philos)
+	while (++i < philos->data->n_philos)
 	{
 		philos[i].philo_n = i + 1;
 		if (pthread_create(&(philos[i]).tid, NULL, start_routine,
@@ -79,8 +88,8 @@ int	init(t_philos *philos)
 			return (0);
 	}
 	i = -1;
-	while (++i < philos->data.n_philos)
-		pthread_join((philos[i]).tid, NULL);
+	while (++i < philos->data->n_philos)
+		pthread_join(philos[i].tid, NULL);
 	return (1);
 }
 
@@ -90,18 +99,17 @@ int	main(int ac, char **av)
 	t_philos		*philos;
 	static t_data	data;
 
-	if (!check_args(ac, av))
+	if (!check_args(ac, av) || !fill_data(av, &data))
 	{
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
-	if (!fill_data(av, &data))
-	{
-		printf("Erro nos valores dos argumentos\n");
-		return (0);
-	}
 	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
+	if (!data.forks)
+		return (0);
 	philos = malloc(sizeof(t_philos) * data.n_philos);
+	if (!philos)
+		return (0);
 	i = -1;
 	while (++i < data.n_philos)
 		philos[i] = fill_philo(data);
@@ -110,4 +118,5 @@ int	main(int ac, char **av)
 		printf("Erro ao iniciar mutex ou threads\n");
 		return (0);
 	}
+	end_prog(philos);
 }

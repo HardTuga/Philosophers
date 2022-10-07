@@ -17,3 +17,6 @@ v0.9 - Verficar norminette, alterar nomes e ficheiros das funçoes para serem ma
        Adicionada função para comer, parte da função para dormir e o loop caso não tenha indicação de vezes para comer.
 v0.10 - Adicionar a morte dos philos, que ta a fazer coisas estranhas.
         Alterada a maneira como mando as mensagens para o terminal.
+v0.11 - Adicionado eles comerem as vezes que sao pedidas.
+        A morte funciona.
+        O programa terminar quando alguem morre.

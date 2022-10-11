@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:07:00 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/07 19:32:00 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/11 15:43:28 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	philo_die(t_philos *philo)
 	if (philo->data->die < current_time(*philo) - philo->last_eat)
 	{
 		philo->data->died++;
-		print_msg(philo, DEAD);
 		pthread_mutex_unlock(&(philo->data->dead));
+		print_msg(philo, DEAD);
 		return (0);
 	}
 	pthread_mutex_unlock(&(philo->data->dead));
@@ -54,6 +54,12 @@ void	print_msg(t_philos *philo, int option)
 
 int	grab_forks(t_philos *philo, int r, int l)
 {
+	if (philo->data->n_philos == 1)
+	{
+		print_msg(philo, DEAD);
+		philo->status = DEAD;
+		return (0);
+	}
 	if (philo->philo_n % 2 == 0 && philo_die(philo))
 	{
 		pthread_mutex_lock(&(philo->data->forks[r]));
@@ -82,13 +88,13 @@ void	philo_eat(t_philos *philo)
 	usleep(philo->data->eat * 1000);
 	if (philo->philo_n == philo->data->n_philos)
 	{
-		pthread_mutex_unlock(&(philo->data->forks[philo->philo_n - 1]));
 		pthread_mutex_unlock(&(philo->data->forks[0]));
+		pthread_mutex_unlock(&(philo->data->forks[philo->philo_n - 1]));
 	}
 	else
 	{
-		pthread_mutex_unlock(&(philo->data->forks[philo->philo_n - 1]));
 		pthread_mutex_unlock(&(philo->data->forks[philo->philo_n]));
+		pthread_mutex_unlock(&(philo->data->forks[philo->philo_n - 1]));
 	}
 	if (philo->n_eat > 0)
 		philo->n_eat--;

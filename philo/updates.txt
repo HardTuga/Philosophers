@@ -21,3 +21,6 @@ v0.11 - Adicionado eles comerem as vezes que sao pedidas.
         A morte funciona.
         O programa terminar quando alguem morre.
 v1.0 - Apos ajuda do Arosado o programa deve funcionar.
+v1.1 - Ao fazer os teste da ficha de avaliacao encontrei alguns erro que estao a ser corrigidos.
+       Erros corrigidos e entrega para ver se passa a avaliacao.
+       Chumbou. Por vezes morrem quando nao devem e sao sempre os impares.

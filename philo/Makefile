@@ -6,7 +6,7 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/10/07 16:07:22 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/10/11 14:20:07 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,7 @@ RM		=		rm -f
 ################## COMPILER ################
 
 CC		=		cc
-CFLAGS	=		-Wall -Werror -Wextra -g -fsanitize=address
+CFLAGS	=		-Wall -Werror -Wextra -g -fsanitize=thread
 
 ################## FILES ###################
 

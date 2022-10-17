@@ -6,7 +6,7 @@
 #    By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/09/06 12:12:49 by pcampos-          #+#    #+#              #
-#    Updated: 2022/10/11 14:20:07 by pcampos-         ###   ########.fr        #
+#    Updated: 2022/10/17 11:48:56 by pcampos-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ CFLAGS	=		-Wall -Werror -Wextra -g -fsanitize=thread
 SRCS	=		srcs/philo_main.c \
 				srcs/utils.c \
 				srcs/routine.c \
+				srcs/forks.c \
 				srcs/timer.c \
 				srcs/end_prog.c
 

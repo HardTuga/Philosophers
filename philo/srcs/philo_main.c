@@ -50,6 +50,15 @@ int	fill_data(char **av, t_data *data)
 	if (data->n_philos < 1 || data->die < 1
 		|| data->eat < 1 || data->sleep < 1)
 		return (0);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
+	if (!data->forks)
+		return (0);
+	data->forks_status = malloc(sizeof(int) * data->n_philos);
+	if (!data->forks_status)
+	{
+		free(data->forks);
+		return (0);
+	}
 	return (1);
 }
 
@@ -65,6 +74,7 @@ t_philos	fill_philo(t_data *data)
 		philo.n_eat = data->repeat;
 	philo.time_init = get_timer();
 	philo.last_eat = philo.time_init;
+	philo.n_forks = 0;
 	return (philo);
 }
 
@@ -104,12 +114,13 @@ int	main(int ac, char **av)
 		printf("Erro nos argumentos\n");
 		return (0);
 	}
-	data.forks = malloc(sizeof(pthread_mutex_t) * data.n_philos);
-	if (!data.forks)
-		return (0);
 	philos = malloc(sizeof(t_philos) * data.n_philos);
 	if (!philos)
+	{
+		free(data.forks);
+		free(data.forks_status);
 		return (0);
+	}
 	i = -1;
 	while (++i < data.n_philos)
 		philos[i] = fill_philo(&data);

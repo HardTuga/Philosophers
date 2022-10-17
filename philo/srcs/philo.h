@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 14:38:12 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/07 17:15:18 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/17 14:43:10 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,8 @@
 # define THINKING	3
 # define FORK		4
 # define DEAD		5
+# define AVAILABLE	0
+# define TAKEN		1
 
 //------------------------------STRUCTS------------------------------//
 typedef struct s_data
@@ -40,6 +42,7 @@ typedef struct s_data
 	pthread_mutex_t	msg;
 	int				died;
 	pthread_mutex_t	*forks;
+	int				*forks_status;
 }				t_data;
 
 typedef struct s_philos
@@ -47,6 +50,7 @@ typedef struct s_philos
 	pthread_t		tid;
 	int				philo_n;
 	int				status;
+	int				n_forks;
 	t_data			*data;
 	int				n_eat;
 	long long		time_init;
@@ -61,10 +65,13 @@ int			init(t_philos *philos);
 
 //------------------------------ROUTINE------------------------------//
 void		*start_routine(void *cenas);
-int			grab_forks(t_philos *philo, int r, int l);
 void		philo_eat(t_philos *philo);
 void		print_msg(t_philos *philo, int option);
 int			philo_die(t_philos *philo);
+
+//------------------------------FORKS------------------------------//
+int			grab_forks(t_philos *philo, int r, int l);
+void		drop_forks(t_philos *philo, int r, int l);
 
 //------------------------------TIMER------------------------------//
 long long	current_time(t_philos philo);
@@ -74,6 +81,7 @@ long long	get_timer(void);
 void		end_prog(t_philos *philos);
 
 //------------------------------UTILS------------------------------//
+void		smart_sleep(t_philos *philo, int time);
 int			ft_atoi(const char *str);
 
 #endif

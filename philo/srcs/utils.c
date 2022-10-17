@@ -6,11 +6,23 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 14:36:02 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/01 15:15:56 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/17 15:18:09 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
+
+void	smart_sleep(t_philos *philo, int time)
+{
+	long long	start;
+
+	start = get_timer();
+	while (philo_die(philo))
+	{
+		if (get_timer() - start > time)
+			break ;
+	}
+}
 
 int	ft_atoi(const char *str)
 {

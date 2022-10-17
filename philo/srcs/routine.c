@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 15:07:00 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/17 17:50:08 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:35:18 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,6 @@ void	print_msg(t_philos *philo, int option)
 	{
 		printf("%lld %d has taken a fork\n", current_time(*philo),
 			philo->philo_n);
-		printf("%lld %d has taken a fork\n", current_time(*philo),
-			philo->philo_n);
 	}
 	else if (option == DEAD)
 		printf("%lld %d died\n", current_time(*philo), philo->philo_n);
@@ -77,7 +75,7 @@ void	*start_routine(void *idk)
 
 	philo = idk;
 	if (philo->philo_n % 2 == 0)
-		usleep(1000);
+		usleep((philo->data->eat * 1000) / 2);
 	while (philo->n_eat != 0 && philo_die(philo))
 	{
 		if (philo->status == THINKING && philo_die(philo))

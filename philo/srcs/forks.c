@@ -6,7 +6,7 @@
 /*   By: pcampos- <pcampos-@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/17 11:49:17 by pcampos-          #+#    #+#             */
-/*   Updated: 2022/10/17 17:18:22 by pcampos-         ###   ########.fr       */
+/*   Updated: 2022/10/17 18:35:34 by pcampos-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ void	take_fork(t_philos *philo, int side)
 	{
 		philo->data->forks_status[side] = TAKEN;
 		philo->n_forks ++;
+		print_msg(philo, FORK);
 	}
 	pthread_mutex_unlock(&(philo->data->forks[side]));
 }
@@ -52,6 +53,5 @@ int	grab_forks(t_philos *philo, int r, int l)
 		if (!philo_die(philo))
 			return (0);
 	}
-	print_msg(philo, FORK);
 	return (1);
 }

@@ -27,3 +27,4 @@ v1.1 - Ao fazer os teste da ficha de avaliacao encontrei alguns erro que estao a
 v1.2 - Resolver os problemas.
        Faz bem os testes da folha de avaliacao (ganhando algum delay).
        Com mais de 12 philos ele fica todo marado.
+v1.3 - Problema "resolvido" agora apenas da problema porque as vezes um philo impar morre a toa

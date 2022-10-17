@@ -47,8 +47,7 @@ int	fill_data(char **av, t_data *data)
 	}
 	else
 		data->repeat = -1;
-	if (data->n_philos < 1 || data->die < 1
-		|| data->eat < 1 || data->sleep < 1)
+	if (data->n_philos < 1 || data->die < 1 || data->eat < 1 || data->sleep < 1)
 		return (0);
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->n_philos);
 	if (!data->forks)
@@ -59,6 +58,7 @@ int	fill_data(char **av, t_data *data)
 		free(data->forks);
 		return (0);
 	}
+	memset(data->forks_status, 0, data->n_philos * sizeof(int));
 	return (1);
 }
 
